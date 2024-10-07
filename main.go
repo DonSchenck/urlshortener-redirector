@@ -47,7 +47,7 @@ func main() {
 
 func getURL(routeId string) string {
 	connStr := "user=shorties password=shorties dbname=urls sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
+	db, err := sql.Open("shorties", connStr)
 	if err != nil {
 		log.Fatal(err)
 	}
