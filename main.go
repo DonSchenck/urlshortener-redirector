@@ -38,7 +38,7 @@ func main() {
 		url := getURL(route)
 		if url != "" {
 			c.JSON(http.StatusOK, url)
-			return
+			//return
 		}
 		c.JSON(http.StatusNotFound, gin.H{"message": "url not found"})
 	})
@@ -56,6 +56,7 @@ func getURL(routeId string) string {
 	defer db.Close()
 	// Query for a single row
 	query := "SELECT url FROM routes WHERE route = '$1'"
+	fmt.Println(query)
 	row := db.QueryRow(query, routeId)
 	var url string
 	err = row.Scan(&url)
