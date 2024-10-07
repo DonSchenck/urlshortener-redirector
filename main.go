@@ -55,9 +55,9 @@ func getURL(routeId string) string {
 	}
 	defer db.Close()
 	// Query for a single row
-	query := "SELECT url FROM routes WHERE route = '$1'"
+	query := fmt.Sprintf("SELECT url FROM routes WHERE route = '%s'", routeId)
 	fmt.Println(query)
-	row := db.QueryRow(query, routeId)
+	row := db.QueryRow(query)
 	var url string
 	err = row.Scan(&url)
 	if err != nil {
