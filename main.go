@@ -62,7 +62,7 @@ func getURL(routeId string) string {
 	// Query for a single row
 	var url string
 
-	err = db.QueryRow("SELECT url FROM routes WHERE route = $1", 1).Scan(&routeId)
+	err = db.QueryRow("SELECT url FROM routes WHERE route = '$1'", 1).Scan(&routeId)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			fmt.Println("No rows were returned!")
