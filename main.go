@@ -38,7 +38,7 @@ func main() {
 	})
 
 	// Get a URL for a route
-	router.GET("/:route", func(c *gin.Context) {
+	router.GET("/routes/:route", func(c *gin.Context) {
 		route := "/" + c.Param("route")
 		url := getURL(route)
 		if url != "" {
