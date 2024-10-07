@@ -15,11 +15,6 @@ type URL struct {
 	URL   string `json:"url"`
 }
 
-var urls = []URL{
-	{Route: "/foo", URL: "https://github.com/donschenck"},
-	{Route: "/bar", URL: "https://developers.redhat.com"},
-}
-
 func main() {
 	router := gin.Default()
 
@@ -60,17 +55,16 @@ func getURL(routeId string) string {
 	}
 	defer db.Close()
 	// Query for a single row
+	query := "SELECT url FROM routes WHERE route = '$1'"
+	row := db.QueryRow(query, routeId)
 	var url string
-
-	err = db.QueryRow("SELECT url FROM routes WHERE route = '$1'", 1).Scan(&routeId)
+	err = row.Scan(&url)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			fmt.Println("No rows were returned!")
 		} else {
-			log.Fatal(err)
+			fmt.Println("Error scanning row:", err)
 		}
-	} else {
-		fmt.Printf("ROUTE: %s, URL: %s\n", routeId, url)
 	}
 	return url
 }
