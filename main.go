@@ -24,6 +24,13 @@ func main() {
 	router := gin.Default()
 
 	// Define a GET endpoint
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"urlshortener-redirector": "v1.0.0",
+		})
+	})
+
+	// Define a GET endpoint
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"health": "OK",
