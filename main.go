@@ -37,7 +37,7 @@ func main() {
 		route := "/" + c.Param("route")
 		url := getURL(route)
 		if url != "" {
-			c.JSON(http.StatusOK, url)
+			c.Redirect(http.StatusFound, url)
 			return
 		}
 		c.JSON(http.StatusNotFound, gin.H{"message": "url not found"})
