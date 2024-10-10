@@ -19,21 +19,14 @@ func main() {
 	router := gin.Default()
 
 	// Define a GET endpoint
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"urlshortener-redirector": "v1.0.0",
-		})
-	})
-
-	// Define a GET endpoint
-	router.GET("/routes/health", func(c *gin.Context) {
+	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"health": "OK",
 		})
 	})
 
 	// Get a URL for a route
-	router.GET("/routes/:route", func(c *gin.Context) {
+	router.GET("/:route", func(c *gin.Context) {
 		route := "/" + c.Param("route")
 		url := getURL(route)
 		if url != "" {
@@ -41,6 +34,13 @@ func main() {
 			return
 		}
 		c.JSON(http.StatusNotFound, gin.H{"message": "url not found"})
+	})
+
+	// Define a GET endpoint
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"urlshortener-redirector": "v1.0.0",
+		})
 	})
 
 	// Start the server
