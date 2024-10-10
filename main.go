@@ -26,7 +26,7 @@ func main() {
 	})
 
 	// Define a GET endpoint
-	router.GET("/health", func(c *gin.Context) {
+	router.GET("/routes/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"health": "OK",
 		})
