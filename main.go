@@ -17,6 +17,7 @@ type URL struct {
 
 func main() {
 	router := gin.Default()
+	router.Use(allowCORS())
 
 	// Define a GET endpoint
 	router.GET("/health", func(c *gin.Context) {
@@ -68,4 +69,19 @@ func getURL(routeId string) string {
 		}
 	}
 	return url
+}
+
+func allowCORS() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
 }
